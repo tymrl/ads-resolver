@@ -12,5 +12,8 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Libraries'
     ],
-    install_requires=[],
+    install_requires=[
+        'flask',
+        'requests',
+    ],
 )
