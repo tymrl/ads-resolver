@@ -1,8 +1,13 @@
-from flask import Flask
+import json
 
+import flask
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 @app.route('/')
 def resolve_refstring():
-    return "Hello, World!"
+    refstring = flask.request.values.get('refstring')
+    return flask.jsonify({
+        'refstring': refstring,
+        'bibcode': '1990ApJ...357....1A'
+    })

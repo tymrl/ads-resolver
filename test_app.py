@@ -1,3 +1,4 @@
+import json
 import requests
 from unittest import TestCase
 
@@ -10,4 +11,11 @@ class FlaskAppTest(TestCase):
         self.client = app.test_client()
 
     def test_flask_response(self):
-        self.assertEqual(self.client.get('/').status_code, 200)
+        refstring = 'Abt, H. 1990, ApJ, 357, 1'
+        response = self.client.get('/?refstring=%s' % refstring)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            json.loads(response.data),
+            {'refstring': refstring,
+             'bibcode': '1990ApJ...357....1A'}
+        )
