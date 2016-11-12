@@ -2,7 +2,7 @@ import json
 from nose.tools import eq_
 from unittest import TestCase
 
-from resolver import get_year
+from resolver import get_year, get_author_initial
 
 class ResolverTestCase(TestCase):
     def setUp(self):
@@ -16,3 +16,9 @@ class ResolverTestCase(TestCase):
         # Not ideal behavior, but still.
         eq_(get_year('When 1978 is in doubt, take the last 2008'), '2008')
         eq_(get_year('If there is no year, we can fix it later'), None)
+
+    def test_get_author_initial(self):
+        eq_(get_author_initial('Very standard string'), 'V')
+        eq_(get_author_initial('addresses lower case'), 'A')
+        eq_(get_author_initial('(What about parens?)'), 'W')
+        eq_(get_author_initial('D. N. Balk on initials'), 'B')
