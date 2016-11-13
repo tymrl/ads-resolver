@@ -38,8 +38,10 @@ class ResolverTestCase(TestCase):
         eq_(self.resolver.get_publication('How about Ann Phys (Paris) overlaps?'),
             '....AnPh.....')
 
-    def test_get_page(self):
-        eq_(self.resolver.get_page('This is a page 2345'), '2345')
-        eq_(self.resolver.get_page('This 234 is the first page 1'), '...1')
-        eq_(self.resolver.get_page('What 989 about periods 23.'), '..23')
-    
+    def test_get_volume_and_page(self):
+        eq_(self.resolver.get_volume_and_page('Vol 1234 page 2345'),
+            ('1234', '2345'))
+        eq_(self.resolver.get_volume_and_page('This 234 is the first page 1'),
+            ('.234', '...1'))
+        eq_(self.resolver.get_volume_and_page('What 989 about periods 23.'),
+            ('.989', '..23'))

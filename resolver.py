@@ -46,14 +46,19 @@ class Resolver:
         # Once we have the match, looking it up is cheap
         return self.publications[match]
 
-    def get_page(self, refstring):
+    @staticmethod
+    def _left_pad(num_string):
+        # TODO: handle page numbers greater than 4 characters correctly
+        while len(num_string) < 4:
+            num_string = '.' + num_string
+        return num_string
+
+    def get_volume_and_page(self, refstring):
         matches = re.findall(self.PAGE_NUM_RE, refstring)
         if not matches:
             return '....'
-        match = matches.pop()
-        # Pad numbers less than 4 characters
-        while len(match) < 4:
-            match = '.' + match
-
-        # TODO: handle page numbers greater than 4 characters correctly
-        return match
+        # Assume that the last number is the page
+        page = self._left_pad(matches.pop())
+        # Assume that the next-to-last number is the volume
+        volume = self._left_pad(matches.pop())
+        return volume, page
