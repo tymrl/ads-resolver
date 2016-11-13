@@ -10,6 +10,7 @@ class Resolver:
         self.CURRENT_YEAR = datetime.datetime.now().year
         self.YEAR_RE = r'19\d\d|20\d\d'
         self.AUTHOR_INITIAL_RE = r'[a-zA-Z]{2,}?'
+        self.PAGE_NUM_RE = r'\d*'
         # TODO: protect against being run from different locations        
         with open('publications.json') as f:
             self.publications = json.load(f)
@@ -21,6 +22,7 @@ class Resolver:
             current_match = matches.pop()
             if int(current_match) < self.CURRENT_YEAR:
                 return current_match
+        return '....'
 
     def get_author_initial(self, refstring):
         match = re.search(self.AUTHOR_INITIAL_RE, refstring)

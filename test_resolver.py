@@ -21,7 +21,7 @@ class ResolverTestCase(TestCase):
         eq_(self.resolver.get_year('When 1978 is in doubt, take the last 2008'),
             '2008')
         eq_(self.resolver.get_year('If there is no year, we can fix it later'),
-            None)
+            '....')
 
     def test_get_author_initial(self):
         eq_(self.resolver.get_author_initial('Very standard string'), 'V')
