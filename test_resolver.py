@@ -45,3 +45,7 @@ class ResolverTestCase(TestCase):
             ('.234', '...1'))
         eq_(self.resolver.get_volume_and_page('What 989 about periods 23.'),
             ('.989', '..23'))
+        eq_(self.resolver.get_volume_and_page('No numbers'),
+            ('....', '....'))
+        eq_(self.resolver.get_volume_and_page('Just 1 number'),
+            ('....', '...1'))
