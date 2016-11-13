@@ -15,7 +15,7 @@ class FlaskAppTest(TestCase):
         response = self.client.get('/?refstring=%s' % refstring)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            json.loads(response.data),
+            json.loads(response.data.decode('utf-8')),
             {'refstring': refstring,
              'bibcode': '1990ApJ...357....1A'}
         )
