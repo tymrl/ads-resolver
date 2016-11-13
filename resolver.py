@@ -10,7 +10,7 @@ class Resolver:
         self.CURRENT_YEAR = datetime.datetime.now().year
         self.YEAR_RE = r'19\d\d|20\d\d'
         self.AUTHOR_INITIAL_RE = r'[a-zA-Z]{2,}?'
-        self.PAGE_NUM_RE = r'\d*'
+        self.PAGE_NUM_RE = r'\d+'
         # TODO: protect against being run from different locations        
         with open('publications.json') as f:
             self.publications = json.load(f)
@@ -45,3 +45,15 @@ class Resolver:
 
         # Once we have the match, looking it up is cheap
         return self.publications[match]
+
+    def get_page(self, refstring):
+        matches = re.findall(self.PAGE_NUM_RE, refstring)
+        if not matches:
+            return '....'
+        match = matches.pop()
+        # Pad numbers less than 4 characters
+        while len(match) < 4:
+            match = '.' + match
+
+        # TODO: handle page numbers greater than 4 characters correctly
+        return match

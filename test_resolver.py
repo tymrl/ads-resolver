@@ -37,3 +37,9 @@ class ResolverTestCase(TestCase):
             '....ApJ......')
         eq_(self.resolver.get_publication('How about Ann Phys (Paris) overlaps?'),
             '....AnPh.....')
+
+    def test_get_page(self):
+        eq_(self.resolver.get_page('This is a page 2345'), '2345')
+        eq_(self.resolver.get_page('This 234 is the first page 1'), '...1')
+        eq_(self.resolver.get_page('What 989 about periods 23.'), '..23')
+    
