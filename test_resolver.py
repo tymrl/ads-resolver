@@ -55,6 +55,8 @@ class ResolverTestCase(TestCase):
             '2000ApJ...538..307D')
         eq_(self.resolver.make_bibcode('Onsager L 1944 Phys. Rev. 65 117'),
             '1944PhRv...65..117O')
+        eq_(self.resolver.make_bibcode(None), None)
+        eq_(self.resolver.make_bibcode('nineteen characters'), 'nineteen characters')
 
     def evaluate_refsample(self):
         """

@@ -69,8 +69,9 @@ class Resolver:
         return volume, page
 
     def make_bibcode(self, refstring):
-        if len(refstring) == 19:
-            # Assume it's actually a bibcode
+        if not refstring or len(refstring) == 19:
+            # If it evaluates to False, return it. If it's 19 characters long,
+            # assume it's a bibcode and we want to return it.
             return refstring
 
         # TODO: Factor out this functionality into a Bibcode class, so we don't

@@ -16,4 +16,9 @@ setup(
         'flask',
         'requests',
     ],
+    entry_points={
+        'console_scripts': [
+            'ads-resolver = app:run',
+        ]
+    },
 )
