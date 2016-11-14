@@ -49,3 +49,21 @@ class ResolverTestCase(TestCase):
             ('....', '....'))
         eq_(self.resolver.get_volume_and_page('Just 1 number'),
             ('....', '...1'))
+
+    def test_make_bibcode(self):
+        eq_(self.resolver.make_bibcode('Dieters, S. W., Belloni, T., Kuulkers, E., et al. 2000, ApJ, 538, 307'),
+            '2000ApJ...538..307D')
+        eq_(self.resolver.make_bibcode('Onsager L 1944 Phys. Rev. 65 117'),
+            '1944PhRv...65..117O')
+
+    def evaluate_refsample(self):
+        """
+        A convenience method to look at failed test cases. Rename to 
+        test_refsample() to use.
+        """
+        for refstring, bibcode in self.refmap.items():
+            if self.resolver.make_bibcode(refstring) != bibcode:
+                print(refstring)
+                print(self.resolver.make_bibcode(refstring))
+                print(bibcode)
+                print()

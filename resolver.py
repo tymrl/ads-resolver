@@ -67,3 +67,23 @@ class Resolver:
         # Assume that the next-to-last number is the volume
         volume = self._convert_volume_and_page(matches.pop())
         return volume, page
+
+    def make_bibcode(self, refstring):
+        if len(refstring) == 19:
+            # Assume it's actually a bibcode
+            return refstring
+
+        # TODO: Factor out this functionality into a Bibcode class, so we don't
+        # have to deal with lists of characters as opposed to strings
+        bibcode = list('...................')
+        bibcode[:13] = list(self.get_publication(refstring))
+        # Check to see if we don't already have a year
+        if bibcode[0] == '.':
+            bibcode[:4] = list(self.get_year(refstring))
+
+        volume, page = self.get_volume_and_page(refstring)
+        bibcode[9:13] = volume
+        bibcode[14:18] = page
+        bibcode[18] = self.get_author_initial(refstring)
+
+        return ''.join(bibcode)
