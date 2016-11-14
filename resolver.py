@@ -55,17 +55,10 @@ class Resolver:
 
     def get_volume_and_page(self, refstring):
         matches = re.findall(self.PAGE_NUM_RE, refstring)
-        if not matches:
-            return ('....', '....')
         # Assume that the last number is the page
-        page = self._convert_volume_and_page(matches.pop())
-        
-        # Maybe there's only one number
-        if not matches:
-            return ('....', page)
-        
+        page = self._convert_volume_and_page(matches.pop()) if matches else '....'
         # Assume that the next-to-last number is the volume
-        volume = self._convert_volume_and_page(matches.pop())
+        volume = self._convert_volume_and_page(matches.pop()) if matches else '....'
         return volume, page
 
     def make_bibcode(self, refstring):
