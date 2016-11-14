@@ -47,23 +47,23 @@ class Resolver:
         return self.publications[match]
 
     @staticmethod
-    def _left_pad(num_string):
-        # TODO: handle page numbers greater than 4 characters correctly
+    def _convert_volume_and_page(num_string):
         while len(num_string) < 4:
             num_string = '.' + num_string
-        return num_string
+        # TODO: handle numbers with greater than 4 characters correctly
+        return num_string[:4]
 
     def get_volume_and_page(self, refstring):
         matches = re.findall(self.PAGE_NUM_RE, refstring)
         if not matches:
             return ('....', '....')
         # Assume that the last number is the page
-        page = self._left_pad(matches.pop())
+        page = self._convert_volume_and_page(matches.pop())
         
         # Maybe there's only one number
         if not matches:
             return ('....', page)
         
         # Assume that the next-to-last number is the volume
-        volume = self._left_pad(matches.pop())
+        volume = self._convert_volume_and_page(matches.pop())
         return volume, page
